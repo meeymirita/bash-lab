@@ -261,6 +261,7 @@ shellcheck bin/bad.sh
 | SC2086 | переменная без кавычек: возможна порча из-за пробелов и `*` | `"$var"` |
 | SC2045 | перебор вывода `ls` | шаблон `for f in dir/*` |
 | SC2164 | `cd` может не сработать | `cd dir \|\| exit` |
+| SC2115 | `rm -rf $var/*` при пустой `var` удалит `/*` | `"${var:?}"/*` |
 | SC2155 | `local x=$(cmd)` скрывает код ошибки команды | объяви и присвой отдельно |
 | SC2034 | переменная задана, но не используется | убрать или экспортировать |
 | SC2154 | переменная используется, но нигде не задана | проверить опечатку |
@@ -408,9 +409,9 @@ chmod +x bin/leak2.sh
 ```bash run
 cd /work/coffeeops
 mkdir -p playground
-mv bin/hello.sh bin/setvar.sh bin/args.sh bin/all.sh bin/defaults.sh bin/nostrict.sh bin/strict.sh \
-   bin/clean.sh bin/slow.sh bin/backup-broken.sh bin/lib-demo.sh bin/opts-demo.sh bin/bad.sh \
-   bin/leak.sh bin/leak2.sh playground/
+mv bin/hello.sh bin/setvar.sh bin/args.sh bin/all.sh bin/defaults.sh bin/badshebang.sh bin/nostrict.sh \
+   bin/strict.sh bin/clean.sh bin/slow.sh bin/backup-broken.sh bin/lib-demo.sh bin/opts-demo.sh \
+   bin/bad.sh bin/leak.sh bin/leak2.sh playground/
 ls bin playground
 ```
 
